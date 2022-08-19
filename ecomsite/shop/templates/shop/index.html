@@ -1,0 +1,100 @@
+{% extends 'shop/base.html' %}
+
+{% block head %}
+    <title>Home</title>
+{%endblock%}
+
+{% block body %}
+        <div class="row">
+            {% for products in product_objects %}
+            <div class="col-md-3">
+                <div class="card card-body flex-fill">
+                    <a href="/{{products.id}}"><img src="{{products.image}}" class="card-img-top"></a>
+                </div>
+                <div class="card-body">
+                    <div id="pd-{{products.id}}" class="card-title">
+                        <a href="/{{products.id}}">{{products.name}}</a>
+                    </div>
+                    <div class="card-text">
+                        <h6 class="price">{{products.price}}</h6>
+                        {{products.discount}}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <button id="{{products.id}}" class="btn atc btn-warning">Add to Cart</button>
+                </div>
+            </br>
+            </div>
+        </br>
+        </br>
+        </br>
+            {% endfor %}
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-3 offset-md-4">
+                <ul class="pagination">
+                    {% if product_objects.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ product_objects.previous_page_number }}">Previous</a>
+                        </li>
+                    {%endif%}
+
+                    <li class="page-item active">
+                        <a class="page-link" href="?page={{ product_objects.number }}">{{ product_objects.number }}</a>
+                    </li>
+
+                    {% if product_objects.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ product_objects.next_page_number }}">Next</a>
+                        </li>
+                    {%endif%}
+                </ul>
+            </div>
+        </div>
+        
+
+{%endblock%}
+
+<script type="text/javascript">
+    if(localStorage.getItem('cart')==null){
+        var cart={};
+    }
+    else{
+        cart=JSON.parse(localStorage.getItem('cart'));
+    }
+
+    $(document).on('click','.atc',function(){
+        var item_id=this.id.toString();
+        
+        if(cart[item_id]!=undefined){
+            cart[item_id]=cart[item_id]+1;
+        }
+        else{
+            cart[item_id]=1;
+        }
+        localStorage.setItem('cart',JSON.stringify(cart));
+        console.log(cart)
+        document.getElementById("cart").innerHTML="Cart("+ Object.keys(cart).length +")";
+        
+    });
+
+    display_cart(cart);
+
+    function display_cart(cart){
+        $('[data-toggle="popover"]').popover();
+        var cartStr="";
+        var cartIndex=1;
+
+        for(var i in cart){
+            cartStr+=cartIndex;
+            cartStr+=document.getElementById('pd-'+i).innerHTML + "- Qty: "+cart[i]+"</br>";
+            cartIndex+=1;
+        }
+        
+        document.getElementById('cart').setAttribute('data-content',cartStr);
+        $('[data-toggle="popover"]').popover();
+    }
+</script>

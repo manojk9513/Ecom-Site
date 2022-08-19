@@ -1,0 +1,15 @@
+{% extends 'shop/base.html' %}
+
+{% block head %}
+    <title>Ekart</title>
+{%endblock%}
+
+{%block body%}
+    <form method="POST">
+        <div class="border border-light p-3 mb-4">
+            <div class="d-flex align-items-center justify-content-center bttn" style="height: 550px">
+                <a class="btn btn-primary" href="{% url 'index' %}" >Shop</a>
+            </div>
+        </div>
+    </form>
+{%endblock%}

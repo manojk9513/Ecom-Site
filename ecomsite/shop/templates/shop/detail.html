@@ -1,0 +1,41 @@
+{% extends 'shop/base.html' %}
+
+{% block head %}
+    <title>{{product_object.name}}</title>
+{%endblock%}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="{{ product_object.image }}">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 id="pd-{{product_object.id}}">{{product_object.name}}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{product_object.description}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>{{product_object.price}}</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 >{{product_object.discount}}</h5>
+                </div>
+            </div>
+            <button id="{{product_object.id}}" class="btn atc btn-warning">Add to Cart</button>
+        </div>
+        
+    </div>
+{%endblock%}
