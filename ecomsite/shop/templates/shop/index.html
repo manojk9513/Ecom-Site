@@ -1,0 +1,50 @@
+{% extends 'shop/base.html' %}
+{%block head%}
+    
+{%endblock%}
+{%block body%}
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="card card-sm">
+                        <div id="search-bar" class="card-body row no-gutters align-items-center">
+                            <div class="col-md-11">
+                                <input type"search" name="item_name" placeholder="Search" class="form-control from-control-borderlesss">
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-success" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row row-equal">
+                {% for i in product_objects %}
+                <div class="col-md-3">
+                    <div class="card" style="padding-top:20px;height:470px">
+                        <center>
+                        <a class="link-primary" href="/{{i.id}}"><img style="height:250px; width:250px" src="{{ i.image }}" class="img-thumbnail"></a>
+                        </center>
+                        <div class="card-body">
+                        </br>
+                            <div class="card-title">
+                                <a id="pm{{i.id}}"class="link-primary" href="/{{i.id}}">{{ i.title }}</a>
+                            </div>
+                            <div class="card-text">
+                                {{ i.discount }}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% if user.is_authenticated%}
+                            <a class="btn btn-success" href="{% url 'index'%}">Buy now</a>
+                            <button id="{{i.id}}" class="btn atc btn-success">Add to cart</a>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+{%endblock%}
+        
+
+
+    
